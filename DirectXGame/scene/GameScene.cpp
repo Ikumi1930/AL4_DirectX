@@ -1,19 +1,74 @@
 #include "GameScene.h"
+#include "ImGuiManager.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "AxisIndicator.h"
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+
+	delete model_;
+	delete debugCamera_;
+	delete player_;
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	textureHandle_ = TextureManager::Load("sample.png");
+
+
+	// 3Dモデルの生成
+	model_ = Model::Create();
+
+	// ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+	// ビュープロジェクションの初期化
+	viewProjection_.Initialize();
+
+	// デバッグカメラに生成
+	debugCamera_ = new DebugCamera(1280, 720);
+
+	//軸方向表示の表示を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+
+	//軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
+
+
+	//自キャラの生成
+	player_ = new Player();
+	//自キャラの初期化
+	player_->Initialize(model_, textureHandle_);
+
+
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	
+
+	// デバッグテキストの表示
+	ImGui::Begin("Debug1");
+	// float3入力ボックス
+	ImGui::InputFloat3("InputFloat3", inputFloat3);
+	// float3スライダー
+	ImGui::SliderFloat3("SliderFloat3", inputFloat3, 0.0f, 1.0f);
+	ImGui::End();
+
+	// デモウィンドウの表示を有効化
+	ImGui::ShowDemoWindow();
+
+	// デバッグカメラの更新
+	debugCamera_->Update();
+
+	//自キャラの更新
+	player_->Update();
+
+}
 
 void GameScene::Draw() {
 
@@ -27,6 +82,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
+	// sprite_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -41,6 +97,12 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	//model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+
+   // model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
+
+	//自キャラの描画
+	player_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -56,6 +118,8 @@ void GameScene::Draw() {
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
+
+
 
 #pragma endregion
 }
