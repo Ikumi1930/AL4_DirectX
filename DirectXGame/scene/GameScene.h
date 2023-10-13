@@ -10,6 +10,8 @@
 #include "WorldTransform.h"
 #include "DebugCamera.h"
 #include "Player.h"
+#include <memory>
+
 
 /// <summary>
 /// ゲームシーン
@@ -53,7 +55,8 @@ private: // メンバ変数
 	Sprite* sprite_ = nullptr;
 
 	//3Dモデル
-	Model* model_ = nullptr;
+	//Model* model_ = nullptr;
+	std::unique_ptr<Model> model_;
 
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
@@ -66,7 +69,9 @@ private: // メンバ変数
 	DebugCamera* debugCamera_ = nullptr;
 
 	//自キャラ
-	Player* player_ = nullptr;
+	//Player* player_ = nullptr;
+	std::unique_ptr<Player> player_;
+
 
 	/// <summary>
 	/// ゲームシーン用

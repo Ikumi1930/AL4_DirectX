@@ -8,9 +8,9 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 
-	delete model_;
-	delete debugCamera_;
-	delete player_;
+	//delete model_;
+	//delete debugCamera_;
+	//delete player_;
 }
 
 void GameScene::Initialize() {
@@ -23,7 +23,9 @@ void GameScene::Initialize() {
 
 
 	// 3Dモデルの生成
-	model_ = Model::Create();
+	//model_ = Model::Create();
+	model_.reset(Model::Create());
+
 
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
@@ -41,10 +43,12 @@ void GameScene::Initialize() {
 
 
 	//自キャラの生成
-	player_ = new Player();
-	//自キャラの初期化
-	player_->Initialize(model_, textureHandle_);
+	//player_ = new Player();
+	player_ = std::make_unique<Player>();
 
+	//自キャラの初期化
+	//player_->Initialize(model_, textureHandle_);
+	player_->Initialize(model_.get(), textureHandle_);
 
 }
 
@@ -97,9 +101,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	//model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 
-   // model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
+    model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
 
 	//自キャラの描画
 	player_->Draw();
