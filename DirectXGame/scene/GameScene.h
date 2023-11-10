@@ -11,7 +11,7 @@
 #include "DebugCamera.h"
 #include "Player.h"
 #include <memory>
-
+#include "Skydome.h"
 
 /// <summary>
 /// ゲームシーン
@@ -58,6 +58,10 @@ private: // メンバ変数
 	//Model* model_ = nullptr;
 	std::unique_ptr<Model> model_;
 
+	//スカイドーム3Dモデル
+	//std::unique_ptr<Model> modelSkydome_;
+
+
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	//ビュープロジェクション
@@ -72,6 +76,11 @@ private: // メンバ変数
 	//Player* player_ = nullptr;
 	std::unique_ptr<Player> player_;
 
+	//std::unique_ptr<Skydome> skydome_;
+	Skydome* skydome_ = nullptr;
+
+
+	Model* modelSkydome_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

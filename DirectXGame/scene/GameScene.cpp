@@ -4,13 +4,16 @@
 #include <cassert>
 #include "AxisIndicator.h"
 
-GameScene::GameScene() {}
+GameScene::GameScene() {
+}
 
 GameScene::~GameScene() {
 
 	//delete model_;
 	//delete debugCamera_;
 	//delete player_;
+	delete modelSkydome_;
+	delete skydome_;
 }
 
 void GameScene::Initialize() {
@@ -25,6 +28,8 @@ void GameScene::Initialize() {
 	// 3Dモデルの生成
 	//model_ = Model::Create();
 	model_.reset(Model::Create());
+
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
 
 
 	// ワールドトランスフォームの初期化
@@ -50,6 +55,16 @@ void GameScene::Initialize() {
 	//player_->Initialize(model_, textureHandle_);
 	player_->Initialize(model_.get(), textureHandle_);
 
+
+	//skydomeの生成
+	skydome_ = new Skydome();
+
+	//skydomeの初期化
+
+	skydome_->Initialize(modelSkydome_);
+
+	
+
 }
 
 void GameScene::Update() {
@@ -71,6 +86,11 @@ void GameScene::Update() {
 
 	//自キャラの更新
 	player_->Update();
+
+	skydome_->Update();
+
+
+
 
 }
 
@@ -97,6 +117,14 @@ void GameScene::Draw() {
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
+
+	//skydome描画
+	skydome_->Draw();
+
+	//model_->Draw(ViewProjection& viewProjrction);
+
+
+
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
