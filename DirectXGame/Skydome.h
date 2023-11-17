@@ -18,7 +18,7 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw(const ViewProjection& viewProjection);
 
 
 
@@ -28,9 +28,5 @@ public:
 
 		//skydomeモデル
 	    Model* model_ = nullptr;
-
-		//ViewProjection viewProjection_;
-
-		ViewProjection viewProjrction_;
 
 };

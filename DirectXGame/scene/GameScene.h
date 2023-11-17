@@ -12,6 +12,7 @@
 #include "Player.h"
 #include <memory>
 #include "Skydome.h"
+#include "Ground.h"
 
 /// <summary>
 /// ゲームシーン
@@ -81,6 +82,12 @@ private: // メンバ変数
 
 
 	Model* modelSkydome_ = nullptr;
+
+
+	Ground* ground_ = nullptr;
+
+
+	Model* modelGround_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

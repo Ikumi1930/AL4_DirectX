@@ -14,6 +14,8 @@ GameScene::~GameScene() {
 	//delete player_;
 	delete modelSkydome_;
 	delete skydome_;
+	delete modelGround_;
+	delete ground_;
 }
 
 void GameScene::Initialize() {
@@ -31,6 +33,7 @@ void GameScene::Initialize() {
 
 	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
 
+	modelGround_ = Model::CreateFromOBJ("ground", true);
 
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
@@ -58,12 +61,15 @@ void GameScene::Initialize() {
 
 	//skydomeの生成
 	skydome_ = new Skydome();
+	ground_ = new Ground();
+
 
 	//skydomeの初期化
-
 	skydome_->Initialize(modelSkydome_);
 
 	
+	ground_->Initialize(modelGround_);
+
 
 }
 
@@ -89,6 +95,7 @@ void GameScene::Update() {
 
 	skydome_->Update();
 
+	ground_->Update();
 
 
 
@@ -119,12 +126,12 @@ void GameScene::Draw() {
 	Model::PreDraw(commandList);
 
 	//skydome描画
-	skydome_->Draw();
+	skydome_->Draw(viewProjection_);
 
 	//model_->Draw(ViewProjection& viewProjrction);
 
 
-
+	ground_->Draw(viewProjection_);
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
