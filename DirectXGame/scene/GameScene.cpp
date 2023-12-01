@@ -126,19 +126,20 @@ void GameScene::Draw() {
 	Model::PreDraw(commandList);
 
 	//skydome描画
-	skydome_->Draw(viewProjection_);
+	skydome_->Draw(debugCamera_->GetViewProjection());
 
 	//model_->Draw(ViewProjection& viewProjrction);
 
 
-	ground_->Draw(viewProjection_);
+	ground_->Draw(debugCamera_->GetViewProjection());
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	
+	//model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 
-    model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
+	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
 
 	//自キャラの描画
 	player_->Draw();
