@@ -162,3 +162,18 @@ inline Matrix4x4
 
 	return result;
 }
+
+// ³‹K‰»
+//Vector3 Normalize(const int &v);
+//float Normalize(const float& v);
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,7 @@
 ﻿#include "Player.h"
+#include "MyMath.h"
 #include <cassert>
+
 
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 
@@ -12,40 +14,29 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	input_ = Input::GetInstance();
 }
 
-void Player::Update(){
+void Player::Update() {
+
+	XINPUT_STATE joyState;
+
+	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+		// 速さ
+		const float speed = 0.3f;
+
+		// 移動量
+		Vector3 move = {
+		    (float)joyState.Gamepad.sThumbLX / SHRT_MAX * speed, 0.0f,
+		    (float)joyState.Gamepad.sThumbLY / SHRT_MAX * speed};
+
+		// 移動量に速さを反映
+		move = Normalize(move) * speed;
 
 
-	/*********
-	// if () {}
-	// キャラクターの移動ベクトル
-	Vector3 move = {0, 0, 0};
+		// 移動
+		worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 
-	// キャラクターの移動速さ
-	const float kCharacterSpeed = 0.2f;
-
-	// 押した方向で移動ベクトルを変更（左右）
-	if (input_->PushKey(DIK_LEFT)) {
-		move.x -= kCharacterSpeed;
-	} else if (input_->PushKey(DIK_RIGHT)) {
-		move.x += kCharacterSpeed;
+		// 行列を更新
+		worldTransform_.UpdateMatrix();
 	}
-
-	// 押した方向で移動ベクトルを変更（上下）
-	if (input_->PushKey(DIK_UP)) {
-		move.y += kCharacterSpeed;
-	} else if (input_->PushKey(DIK_DOWN)) {
-		move.y -= kCharacterSpeed;
-	}
-
-	// 座標移動(ベクトルの加算)
-	worldTransform_.translation_ += move;
-
-	
-	*********/
-
-
-
 }
 
-void Player::Draw() { 
-	 }
+void Player::Draw() {}

@@ -29,5 +29,6 @@ private:
 	uint32_t texturHandle_ = 0u;
 	//キーボード入力
 	Input* input_ = nullptr;
+	
 
 };
