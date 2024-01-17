@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "ViewProjection.h"
 
 class FollowCamera {
@@ -16,7 +16,7 @@ public:
 
 private:
 
-	// ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“
+	// ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³
 	ViewProjection viewProjection_;
 
 	

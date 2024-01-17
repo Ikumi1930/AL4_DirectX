@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <cassert>
 #include <cmath>
 #include "Vector3.h"
@@ -163,10 +163,19 @@ inline Matrix4x4
 	return result;
 }
 
-// ���K��
-//Vector3 Normalize(const int &v);
-//float Normalize(const float& v);
+//長さ（ノルム）
+float Length(const Vector3& v);
 
+//正規化
+Vector3 Nomalize(const Vector3& v){ 
+	float len = Length(v);
+	Vector3 result = v;
+	if (len ! = 0)
+	{
+		result /= len;
+	}
+	return result;
+}
 
 
 

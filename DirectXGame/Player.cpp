@@ -15,9 +15,10 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 }
 
 void Player::Update() {
-
+	// ゲームパッドの状態を得る変数
 	XINPUT_STATE joyState;
 
+	//ゲームパッドの状態取得、ゲームパッドが有効の場合if文が通る
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
 		// 速さ
 		const float speed = 0.3f;
@@ -28,7 +29,7 @@ void Player::Update() {
 		    (float)joyState.Gamepad.sThumbLY / SHRT_MAX * speed};
 
 		// 移動量に速さを反映
-		move = Normalize(move) * speed;
+		move = Nomalize(move) * speed;
 
 
 		// 移動
