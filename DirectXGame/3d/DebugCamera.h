@@ -1,6 +1,7 @@
 #pragma once
 #include "Input.h"
 #include "ViewProjection.h"
+#include "FollowCamera.h"
 
 /// <summary>
 /// デバッグ用カメラ

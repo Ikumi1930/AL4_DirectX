@@ -164,15 +164,20 @@ inline Matrix4x4
 }
 
 //長さ（ノルム）
-float Length(const Vector3& v);
+inline float Length(const Vector3& v){
+
+
+
+}
 
 //正規化
-Vector3 Nomalize(const Vector3& v){ 
+inline Vector3 Normalize(const Vector3& v){ 
 	float len = Length(v);
 	Vector3 result = v;
-	if (len ! = 0)
-	{
-		result /= len;
+	if (len != 0.0f){
+		result.x /= len;
+		result.y /= len;
+		result.z /= len;
 	}
 	return result;
 }

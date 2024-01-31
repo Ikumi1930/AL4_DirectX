@@ -28,9 +28,12 @@ void Player::Update() {
 		    (float)joyState.Gamepad.sThumbLX / SHRT_MAX * speed, 0.0f,
 		    (float)joyState.Gamepad.sThumbLY / SHRT_MAX * speed};
 
-		// 移動量に速さを反映
-		move = Nomalize(move) * speed;
+		Vector3 normalizeMove = Normalize(move);
 
+		// 移動量に速さを反映
+		move.x = normalizeMove.x * speed;
+		move.y = normalizeMove.y * speed;
+		move.z = normalizeMove.z * speed;
 
 		// 移動
 		worldTransform_.translation_ = Add(worldTransform_.translation_, move);
