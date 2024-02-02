@@ -18,7 +18,9 @@ public:
 	/// <summary>
 	/// 　描画
 	/// </summary>
-	void Draw();
+	void Draw(const ViewProjection& viewProjection, uint32_t textureHandle_);
+	WorldTransform& GetWorldTransform() { return worldTransform_; }
+
 
 private:
 	//ワールド変換データ
@@ -30,5 +32,5 @@ private:
 	//キーボード入力
 	Input* input_ = nullptr;
 	
-
+	ViewProjection* viewProjection_;
 };

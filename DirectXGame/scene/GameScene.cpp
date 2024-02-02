@@ -71,10 +71,16 @@ void GameScene::Initialize() {
 	ground_->Initialize(modelGround_);
 
 
+	//追従カメラの生成
+	followCamera_ = std::make_unique<FollowCamera>();
+
+	followCamera_->Initialize();
+
+	//自キャラのワールドトランスフォームを追従カメラにセット
+	followCamera_->SetTarget(&player_->GetWorldTransform());
 }
 
 void GameScene::Update() {
-	
 
 	// デバッグテキストの表示
 	ImGui::Begin("Debug1");
@@ -90,15 +96,19 @@ void GameScene::Update() {
 	// デバッグカメラの更新
 	debugCamera_->Update();
 
-	//自キャラの更新
+	// 自キャラの更新
 	player_->Update();
 
 	skydome_->Update();
 
 	ground_->Update();
 
+	// 追従カメラの更新
+	followCamera_->Update();
 
+	viewProjection_.matProjection = followCamera_->GetViewProjection().matProjection;
 
+	viewProjection_.matView = followCamera_->GetViewProjection().matView;
 }
 
 void GameScene::Draw() {
@@ -142,7 +152,7 @@ void GameScene::Draw() {
 	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
 
 	//自キャラの描画
-	player_->Draw();
+	player_->Draw(debugCamera_->GetViewProjection(),textureHandle_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

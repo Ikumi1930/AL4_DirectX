@@ -1,6 +1,7 @@
 ﻿#include "Player.h"
 #include "MyMath.h"
 #include <cassert>
+#include <GameScene.h>
 
 
 void Player::Initialize(Model* model, uint32_t textureHandle) {
@@ -15,6 +16,8 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 }
 
 void Player::Update() {
+
+	
 	// ゲームパッドの状態を得る変数
 	XINPUT_STATE joyState;
 
@@ -35,6 +38,17 @@ void Player::Update() {
 		move.y = normalizeMove.y * speed;
 		move.z = normalizeMove.z * speed;
 
+
+		//新規追加
+		Matrix4x4 matCamerRotate = MakeRotateYMatrix(viewProjection_->rotation_.y);
+		move = TransformNormal(move, matCamerRotate);
+
+
+		//
+		if (move.x != 0 || move.z != 0) {
+			worldTransform_[(size_t)ModelParts::kBase].rotation_.y = std::atan2f(move.x, move.z);
+		}
+
 		// 移動
 		worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 
@@ -43,4 +57,6 @@ void Player::Update() {
 	}
 }
 
-void Player::Draw() {}
+void Player::Draw(const ViewProjection& viewProjection, uint32_t textureHandle_) { 
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+}

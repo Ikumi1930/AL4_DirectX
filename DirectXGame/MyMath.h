@@ -166,9 +166,14 @@ inline Matrix4x4
 //長さ（ノルム）
 inline float Length(const Vector3& v){
 
+		float result{};
+
+		result = sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+
+		return result;
+	}
 
 
-}
 
 //正規化
 inline Vector3 Normalize(const Vector3& v){ 
@@ -183,7 +188,13 @@ inline Vector3 Normalize(const Vector3& v){
 }
 
 
-
+static Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
+	Vector3 result{
+	    v.x * m.m[0][0] + v.y * m.m[1][0] + v.z * m.m[2][0],
+	    v.x * m.m[0][1] + v.y * m.m[1][1] + v.z * m.m[2][1],
+	    v.x * m.m[0][2] + v.y * m.m[1][2] + v.z * m.m[2][2]};
+	return result;
+}
 
 
 
