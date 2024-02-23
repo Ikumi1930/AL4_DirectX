@@ -25,12 +25,50 @@ public:
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
+
+	//頭のワールド変換データ
+	WorldTransform worldTransformHead_;
+
+	//左手のワールド変換データ
+	WorldTransform worldTransformLeftHand_;
+
+	//右手のワールド変換データ
+	WorldTransform worldTransformRightHand_;
+
+	//左足のワールド変換データ
+	WorldTransform worldTransformLeftLeg_;
+
+	//右足のワールド変換データ
+	WorldTransform worldTransformRightLeg_;
+
+
+	ViewProjection* viewProjection_;
+
 	//モデル
 	Model* model_ = nullptr;
+
+	//頭
+	Model* modelHead_ = nullptr;
+
+	//左手
+	Model* modelLeftHand_ = nullptr;
+
+	//右手
+	Model* modelRightHand_ = nullptr;
+
+	//左足
+	Model* modelLeftLeg_ = nullptr;
+
+	//右足
+	Model* modelRightLeg_ = nullptr;
+
 	//テクスチャハンドル
-	uint32_t texturHandle_ = 0u;
+	uint32_t textureHandle_ = 0u;
 	//キーボード入力
 	Input* input_ = nullptr;
 	
-	ViewProjection* viewProjection_;
+	
+
+
+
 };

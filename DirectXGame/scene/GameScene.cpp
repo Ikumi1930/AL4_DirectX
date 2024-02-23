@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include <cassert>
 #include "AxisIndicator.h"
+#include "Player.h"
 
 GameScene::GameScene() {
 }

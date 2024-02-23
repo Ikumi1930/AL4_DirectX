@@ -196,6 +196,8 @@ static Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
 	return result;
 }
 
+//#define M_PI 3.14159f
+
 
 
 
